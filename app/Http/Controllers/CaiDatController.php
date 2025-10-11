@@ -1,7 +1,9 @@
 <?php
+
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use App\Service\CaiDatService;
-class AppServiceProvider extends ServiceProvider
+class CaiDatController extends Controller
 {
     public function boot(CaiDatService $caiDatService)
     {

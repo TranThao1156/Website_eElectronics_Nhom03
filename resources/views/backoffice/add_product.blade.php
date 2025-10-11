@@ -39,8 +39,6 @@
                     @endforeach
                 </datalist>
             </div>
-
-
         <label for="gia_nhap">Giá nhập (VNĐ)</label>
         <input type="number" id="gia_nhap" name="GiaNhap" placeholder="Nhập giá nhập" required>
 

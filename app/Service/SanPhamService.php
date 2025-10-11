@@ -26,7 +26,7 @@ class SanPhamService
             WHERE MaSanPham = ?
         ", [$MaSanPham]);
     }
-
+    // Khanh - Lấy danh sách Latest Products
     public function getLatestProducts(int $limit = 50)
     {
         return DB::select("
@@ -40,7 +40,7 @@ class SanPhamService
         ", [$limit]);
     }
 
-
+    // Khôi - Lấy danh sách TopSeller
     public function topseller(int $limit = 0)
     {
         return DB::select("
@@ -54,7 +54,23 @@ class SanPhamService
             LIMIT ?
         ", [$limit]);
     }
-    
+    // Trâm - Lấy danh sách sản phẩm mới (top new)
+    public function topNew(int $limit = 0)
+    {
+        return DB::select("
+            SELECT 
+                MaSanPham AS id, 
+                Ten AS TenSanPham,
+                SUBSTRING_INDEX(HinhAnh, ',', 1) AS HinhAnh,
+                GiaNhap, 
+                GiaSauGiam
+            FROM sanpham
+            WHERE TrangThai = 1
+            ORDER BY MaSanPham DESC
+            LIMIT ?
+            ", [$limit]);
+    }
+
 
     public function getTop(int $limit = 3)
     {

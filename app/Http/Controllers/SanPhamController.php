@@ -13,19 +13,16 @@ class SanPhamController extends Controller
     {
         $this->SanPhamService = $products;
     }
-
-    // Trang danh sách sản phẩm
+    // Thảo - Trang sản phẩm
     public function index(Request $request)
     {
         $dsSanPham = $this->SanPhamService->getAll();
-
-        $latestProducts = $this->SanPhamService->getLatestProducts(20); // Lấy 10 sản phẩm mới nhất
-
+        // Khanh - Lấy danh sách sản phẩm mới nhất
+        $latestProducts = $this->SanPhamService->getLatestProducts(20); // Lấy 20 sản phẩm mới nhất
+        // Khôi - Lấy danh sách TopSeller
         $topSellers = $this->SanPhamService->topseller(3);
-
-        // Lấy danh sách sản phẩm đã xem gần đây
+        // Thảo - Lấy danh sách sản phẩm đã xem gần đây
         $recentlyViewed = $request->session()->get('recently_viewed', []);
-
         $recentProducts = [];
         foreach ($recentlyViewed as $MaSanPham) {
             $sp = $this->SanPhamService->find($MaSanPham);
@@ -34,17 +31,19 @@ class SanPhamController extends Controller
             }
         }
         $recentProducts = array_slice($recentProducts, 0, 3);
-
+        // Trâm - Lấy danh sách sản phẩm mới (top new)
+        $topNew = $this->SanPhamService->topNew(3);
         return view('user.home', [
             'dsSanPham' => $dsSanPham,
             'latestProducts' => $latestProducts,
             'topseller'      => $topSellers,
             'recentProducts' => $recentProducts,
+            'topNew'         => $topNew
         ]);
         
     }
 
-    // Trang chi tiết sản phẩm
+    // Thi - Trang chi tiết sản phẩm
     public function show(Request $request, $MaSanPham)
     {
         $sp = $this->SanPhamService->find($MaSanPham);
@@ -52,7 +51,7 @@ class SanPhamController extends Controller
             abort(404, 'Không tìm thấy sản phẩm');
         }
 
-        // Cập nhật danh sách sản phẩm đã xem
+        // Thảo - Cập nhật danh sách sản phẩm đã xem
         $recentlyViewed = $request->session()->get('recently_viewed', []);
         $recentlyViewed = array_diff($recentlyViewed, [$MaSanPham]);
         array_unshift($recentlyViewed, $MaSanPham);
@@ -61,7 +60,7 @@ class SanPhamController extends Controller
         
         return view('user.single-product', ['sp' => $sp]);
     }
-
+    // Thảo - Lưu danh sách sản phẩm đã xem gần đây vào session 
     public function recentlyViewed(Request $request)
     {
         $recentlyViewed = $request->session()->get('recently_viewed', []);
@@ -83,8 +82,5 @@ class SanPhamController extends Controller
         $topseller = $this->SanPhamService->topseller(50); // Không truyền limit => lấy toàn bộ
         return view('user.TopSeller', compact('topseller'));
     }
-    
-    
-
 }
 

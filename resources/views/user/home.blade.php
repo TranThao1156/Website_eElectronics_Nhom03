@@ -131,7 +131,6 @@
                             @if(isset($latestProducts) && !empty($latestProducts))
                                 @foreach($latestProducts as $product)
                                 <div class="single-product">
-                                    
                                     <div class="product-f-image">
                                         <a href="{{ route('product.show', ['id' => $product->id]) }}">
                                             <img src="{{ asset('img/products/' . $product->HinhAnh) }}" 
@@ -143,19 +142,16 @@
                                             <a href="{{ route('product.show', ['id' => $product->id]) }}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                         </div>
                                     </div>
-                                    
                                     <h2>
                                         <a href="{{ route('product.show', ['id' => $product->id]) }}">
                                             {{ $product->TenSanPham }}
                                         </a>
                                     </h2>
-
                                     <div class="product-carousel-price">
                                         <ins>{{ number_format($product->Gia, 0, ',', '.') }} VNĐ</ins>
                                     </div> 
                                 </div>
                                 @endforeach
-
                             @else
                                 <p class="text-center">Chưa có sản phẩm nào để hiển thị.</p>
                             @endif
@@ -233,7 +229,6 @@
                             <div class="single-product-widget">
                                 <h2 class="product-wid-title">Recently Viewed</h2>
                                 <a href="{{ route('recently.viewed') }}" class="wid-view-more">View All</a>
-
                                 @if (!empty($recentProducts))
                                     @foreach ($recentProducts as $sp)
                                         <div class="single-wid-product">
@@ -247,7 +242,6 @@
                                                 <i class="fa fa-star"></i>
                                             </span>
                                             @endfor
-
                                             <div class="product-wid-price">
                                                 <ins>${{ number_format($sp->GiaSauGiam, 2) }}</ins>
                                                 <del>${{ number_format($sp->GiaNhap, 2) }}</del>
@@ -260,67 +254,44 @@
                             </div>
                         </div>
 
-                            <!-- Single product -->
+                            <!-- Top new -->
                             <div class="col-md-4">
-                                    @php
-                                        // Inline Top New widget: use SanPhamService to keep product queries centralized
-                                        $sanPhamService = app(\App\Service\SanPhamService::class);
-                                        $items = $sanPhamService->getTop(3);
-                                    @endphp
+                            <div class="single-product-widget">
+                                <h2 class="product-wid-title">New Arrivals</h2>
+                                <a href="#" class="wid-view-more">View All</a>
+                                @if(!empty($topNew))
+                                    @foreach($topNew as $product)
+                                        <div class="single-wid-product">
+                                            <a href="{{ route('product.show', ['id' => $product->id]) }}">
+                                                <img src="{{ asset('img/products/' . $product->HinhAnh) }}" 
+                                                    alt="{{ $product->TenSanPham }}" 
+                                                    class="product-thumb">
+                                            </a>
+                                            <h2>{{ $product->TenSanPham }}</h2>
 
-                                @if(isset($items) && count($items))
-                                    <div class="single-product-widget">
-                                        <h2 class="product-wid-title">Top New</h2>
-                                        <a href="#" class="wid-view-more">View All</a>
-
-                                        @foreach($items as $item)
-                                            @php
-                                                $thumb = $item->HinhAnh 
-                                                    ? asset('img/products/' . $item->HinhAnh) 
-                                                    : asset('img/product-thumb-1.jpg');
-
-                                                $title = $item->Ten ?? 'Product';
-                                                // use the same URL pattern as Recently Viewed (/san-pham/{id})
-                                                $detailUrl = url('/san-pham/' . ($item->MaSanPham ?? ''));
-
-                                                $originalPrice = $item->GiaNhap ?? 0;
-                                                $discountedPrice = $item->GiaSauGiam ?? null;
-                                            @endphp
-
-                                            <div class="single-wid-product">
-                                                <a href="{{ $detailUrl }}">
-                                                    <img src="{{ $thumb }}" alt="{{ $title }}" class="product-thumb">
-                                                </a>
-                                                <h2><a href="{{ $detailUrl }}">{{ $title }}</a></h2>
-
-                                                <!-- Sao đánh giá -->
-                                                <div class="product-wid-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-
-                                                <!-- Giá -->
-                                                <div class="product-wid-price">
-                                                    @if($discountedPrice)
-                                                        <ins>${{ number_format($discountedPrice, 2) }}</ins>
-                                                        <del>${{ number_format($originalPrice, 2) }}</del>
-                                                    @else
-                                                        <ins>${{ number_format($originalPrice, 2) }}</ins>
-                                                    @endif
-                                                </div>
+                                            <div class="product-wid-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
                                             </div>
-                                        @endforeach
-                                    </div>
+
+                                            <div class="product-wid-price">
+                                                <ins>{{ number_format($product->GiaNhap ?? 0, 0, ',', '.') }} VNĐ</ins>
+                                                @if(!empty($product->GiaSauGiam))
+                                                    <del>{{ number_format($product->GiaSauGiam, 0, ',', '.') }} VNĐ</del>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 @else
-                                    <div class="single-product-widget">
-                                        <h2 class="product-wid-title">Top New</h2>
-                                        <p>Không có sản phẩm mới.</p>
-                                    </div>
+                                    <p class="text-center">Chưa có sản phẩm mới nào để hiển thị.</p>
                                 @endif
                             </div>
+                        </div>
+
+
 
                         </div>
 
