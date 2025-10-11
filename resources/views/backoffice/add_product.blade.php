@@ -5,14 +5,11 @@
 @endsection
 
 
-
-
-
 @section('content')
 
 <div class="container">
     <h2>Thêm sản phẩm mới</h2>
-    <form action="/sanpham/them" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('add_product.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 		<!-- Ảnh sản phẩm -->
         <label for="images">Ảnh sản phẩm</label>

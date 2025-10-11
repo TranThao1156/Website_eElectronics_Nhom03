@@ -14,8 +14,9 @@ Route::prefix('backoffice')
         return view ('backoffice.dashboard');
     })->name('dashboard');
 
-    
-    Route::get('/add_product', [ChucNang_Add_ProducController ::class, 'index'])->name('add_product');
+    Route::get('/add_product', [ChucNang_Add_ProducController::class, 'index'])->name('add_product.index');
+
+    Route::post('/sanpham/them', [ChucNang_Add_ProducController::class, 'store'])->name('add_product.store');
 
     // Trang danh sách sản phẩm (admin) - load trực tiếp từ DB và trả view admin.product
     Route::get('/products', function (Request $request) {

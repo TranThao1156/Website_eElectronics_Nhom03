@@ -22,5 +22,22 @@ namespace App\Http\Controllers;
             return view('backoffice.add_product', compact('dsDanhMuc', 'dsNhaCungCap'));
         }
 
+
+        // Xử lý submit form thêm sản phẩm
+        public function store(Request $request)
+        {
+            $request->validate([
+                'Ten' => 'required|string|max:255',
+                'MaDanhMuc' => 'required|string|max:255',
+                'MaNhaCungCap' => 'required|string|max:255',
+                'GiaNhap' => 'required|numeric|min:1000',
+                'SoLuong' => 'required|integer|min:1',
+            ]);
+
+            $result = $this->ProducService->handleAddProduct($request->all());
+
+            return redirect()->back()->with($result['status'], $result['message']);
+        }
         
+    
     }
