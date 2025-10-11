@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="index.html">e<span>Electronics</span></a></h1>
+                        <h1><a href="{{ route('home') }}">e<span>Electronics</span></a></h1>
                     </div>
                 </div>
                 
