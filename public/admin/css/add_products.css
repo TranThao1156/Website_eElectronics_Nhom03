@@ -1,4 +1,4 @@
- body {
+body {
     font-family: Arial, sans-serif;
     background: #f5f7fa;
     margin: 0;
@@ -146,7 +146,7 @@ datalist option {
 
 /* Input file */
 #images {
-    /* padding: 6px; */
+/* padding: 6px; */
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 250px;

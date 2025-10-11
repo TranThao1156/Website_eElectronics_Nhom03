@@ -22,15 +22,25 @@
 		<!-- Số lượng -->
 		<label for="soluong">Số lượng</label>
         <input type="number" id="soluong" name="SoLuong" placeholder="Nhập số lượng" min="1" required>
-		<!-- Nhà cung cấp -->
-        <label for="nha_cung_cap">Tên nhà cung cấp</label>
-        <select id="nha_cung_cap" name="MaNhaCungCap" required>
-            <option value="">-- Chọn nhà cung cấp --</option>
-            <option value="1">Công ty TNHH ABC</option>
-            <option value="2">Công ty Điện tử Việt</option>
-            <option value="3">Công ty Công nghệ Toàn Cầu</option>
-        </select>
-		<!-- Giá nhập và giá sau giảm -->
+
+        <label for="nha_cung_cap" class="form-label">Nhà cung cấp</label>
+            <div class="custom-datalist">
+                <input 
+                    list="nhacungcap_list" 
+                    id="nha_cung_cap" 
+                    name="MaNhaCungCap" 
+                    placeholder="Chọn hoặc nhập nhà cung cấp" 
+                    required
+                    class="datalist-input"
+                >
+                <datalist id="nhacungcap_list">
+                    @foreach($dsNhaCungCap as $ncc)
+                        <option value="{{ $ncc->Ten }}"></option>
+                    @endforeach
+                </datalist>
+            </div>
+
+
         <label for="gia_nhap">Giá nhập (VNĐ)</label>
         <input type="number" id="gia_nhap" name="GiaNhap" placeholder="Nhập giá nhập" required>
 
