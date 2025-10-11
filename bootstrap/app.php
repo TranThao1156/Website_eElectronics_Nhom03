@@ -15,7 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withMiddleware(function (Middleware $middleware) {
     $middleware->append([
-        'log.request' => \App\Http\Middleware\LogRequest::class,
+    'log.request' => \App\Http\Middleware\LogRequest::class,
+    'admin.auth' => \App\Http\Middleware\AdminAuth::class,
+
         ]);
     })
     
