@@ -18,8 +18,7 @@ class DanhMucController extends Controller
     public function index(Request $request)
     {
         $dsDanhMuc = $this->DanhMucService->getAll();
-        return view('user.home', [
-        'dsDanhMuc' => $dsDanhMuc,
-    ]);
+        return view('backoffice.add_product', compact('dsDanhMuc')
+    );
     }
 }

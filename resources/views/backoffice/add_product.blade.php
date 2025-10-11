@@ -34,13 +34,24 @@
         <label for="mo_ta">Mô tả sản phẩm</label>
         <textarea id="mo_ta" name="MoTa" placeholder="Nhập mô tả chi tiết sản phẩm"></textarea>
 
-        <label for="danh_muc">Danh mục</label>
-        <select id="danh_muc" name="MaDanhMuc" required>
-            <option value="">-- Chọn danh mục --</option>
-            <option value="1">Laptop</option>
-            <option value="2">Điện thoại</option>
-            <option value="3">Phụ kiện</option>
-        </select>
+
+        <label for="danh_muc" class="form-label">Danh mục</label>
+		<div class="custom-datalist">
+			<input 
+				list="danhmuc_list" 
+				id="danh_muc" 
+				name="MaDanhMuc" 
+				placeholder="Chọn hoặc nhập danh mục" 
+				required
+				class="datalist-input"
+			>
+			<datalist id="danhmuc_list">
+				@foreach($dsDanhMuc as $dm)
+					<option value="{{ $dm->Ten }}"></option>
+				@endforeach
+			</datalist>
+		</div>
+
 
         <label for="tags">Tags (phân cách bằng dấu phẩy)</label>
         <input type="text" id="tags" name="Tags" placeholder="Ví dụ: công nghệ, giảm giá, hot">

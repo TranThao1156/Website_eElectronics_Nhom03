@@ -8,6 +8,6 @@ class DanhMucService
     //Thảo - Lấy tất cả danh mục
     public function getAll()
     {
-        return DB::select('SELECT Ten FROM danhmuc WHERE TrangThai = 1');
+        return DB::select("SELECT * FROM danhmuc WHERE TrangThai = 1");
     }
 }

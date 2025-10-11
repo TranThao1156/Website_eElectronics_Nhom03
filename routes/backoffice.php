@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\SanPhamController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -12,9 +15,7 @@ Route::prefix('backoffice')
     })->name('dashboard');
 
     // Trang thêm sản phẩm
-    Route::get('/add_product', function () {
-        return view('backoffice.add_product');
-    })->name('add_product');
+    Route::get('/add_product', [DanhMucController::class, 'index'])->name('add_product');
 
     // Trang danh sách sản phẩm (admin) - load trực tiếp từ DB và trả view admin.product
     Route::get('/products', function (Request $request) {
