@@ -6,7 +6,7 @@ use App\Http\Controllers\CaiDatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Service\CaiDatService;
-
+use App\Http\Controllers\AdminAuthController;
 
 //Trang chủ
 Route::get('/', [SanPhamController::class, 'index'])->name('home');
@@ -84,6 +84,22 @@ Route::get('/register', function () {
 Route::get('/resetpassword', function () {
     return view('auth.resetpassword');
 })->name('resetpassword');
+
+// Kiểm tra đăng nhập quản trị (Bài tập 3)
+// Trang đăng nhập (test tên đăng nhập: user4, mật khẩu: 123456)
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+
+// Gửi form đăng nhập
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+
+// Đăng xuất
+Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+// Trang chính sau khi đăng nhập
+Route::get('/admin/dashboard', function () {
+    return view('backoffice.dashboard');
+})->name('admin.dashboard');
+
 
 // Nhúng thêm routes backoffice
 require __DIR__.'/backoffice.php';

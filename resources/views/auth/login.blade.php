@@ -25,7 +25,7 @@
     <div class="limiter">
         <div class="container-login100" style="background-image: url('{{ asset('Auth/images/bg-01.jpg') }}');">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+                <form class="login100-form validate-form" method="POST" action="{{ route('admin.login.post') }}">
                     @csrf
                     
                     <span class="login100-form-logo">
@@ -37,19 +37,19 @@
                     </span>
 
                     <!-- Username -->
-                    <div class="wrap-input100 validate-input" data-validate="Enter email">
-                        <input class="input100" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        <input class="input100" type="text" name="TenDangNhap" value="{{ old('TenDangNhap') }}" placeholder="Username">
                         <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                        @error('email')
+                        @error('TenDangNhap')
                             <span class="text-danger small">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <!-- Password -->
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="password" placeholder="Password">
+                        <input class="input100" type="password" name="MatKhau" placeholder="Password">
                         <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                        @error('password')
+                        @error('MatKhau')
                             <span class="text-danger small">{{ $message }}</span>
                         @enderror
                     </div>
@@ -71,12 +71,12 @@
 
                     <!-- Links -->
                     <div class="text-center p-t-90">
-                            <a class="txt1" href="{{ route('resetpassword') }}">
-                                Forgot Password?
-                            </a>
-                            <a class="txt1" href="{{ route('register') }}">
-                                &nbsp;&nbsp;&nbsp;Register?
-                            </a>
+                        <a class="txt1" href="{{ route('resetpassword') }}">
+                            Forgot Password?
+                        </a>
+                        <a class="txt1" href="{{ route('register') }}">
+                            &nbsp;&nbsp;&nbsp;Register?
+                        </a>
                     </div>
                 </form>
             </div>

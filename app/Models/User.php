@@ -17,21 +17,21 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
 
     /**
      * Get the attributes that should be cast.
@@ -44,5 +44,32 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    use Notifiable;
+
+    protected $table = 'nguoidung';
+    protected $primaryKey = 'IDUser';
+    public $timestamps = false;
+    protected $fillable = [
+        'TenDangNhap',
+        'MatKhau',
+        'Email',
+        'SoDienThoai',
+        'NgaySinh',
+        'GioiTinh',
+        'DiaChi',
+        'TrangThai',
+        'Role',
+    ];
+
+    protected $hidden = [
+        'MatKhau',
+    ];
+
+    // Laravel mặc định lấy "password" → sửa lại cho đúng cột MatKhau
+    public function getAuthPassword()
+    {
+        return $this->MatKhau;
     }
 }
