@@ -21,7 +21,7 @@ class SanPhamController extends Controller
 
         $latestProducts = $this->SanPhamService->getLatestProducts(20); // Lấy 10 sản phẩm mới nhất
 
-        $topSellers = $this->SanPhamService->topseller();
+        $topSellers = $this->SanPhamService->topseller(3);
 
         // Lấy danh sách sản phẩm đã xem gần đây
         $recentlyViewed = $request->session()->get('recently_viewed', []);
@@ -77,6 +77,11 @@ class SanPhamController extends Controller
         return view('user.recently-viewed', [
             'recentProducts' => $recentProducts
         ]);
+    }
+    public function allTopSeller()
+    {
+        $topseller = $this->SanPhamService->topseller(50); // Không truyền limit => lấy toàn bộ
+        return view('user.TopSeller', compact('topseller'));
     }
     
     

@@ -1,0 +1,111 @@
+/* --- Cố định khung sản phẩm --- */
+.single-product {
+    position: relative;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 420px; /* 👈 tăng chiều cao thẻ sản phẩm */
+}
+
+.single-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+/* --- Hình ảnh sản phẩm --- */
+.single-product img {
+    width: 100%;
+    height: 240px; /* 👈 tăng chiều cao ảnh */
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* --- Hiệu ứng hover mượt và không đè --- */
+.product-f-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+/* --- Lớp phủ khi hover --- */
+.product-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-radius: 6px;
+}
+
+/* --- Hiển thị lớp phủ khi hover ảnh --- */
+.product-f-image:hover .product-hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Nút Add / Detail --- */
+.add-to-cart-link,
+.view-details-link {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #1abc9c;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background 0.3s ease, transform 0.25s ease;
+    width: 180px;
+    text-align: center;
+}
+
+.add-to-cart-link:hover,
+.view-details-link:hover {
+    background: #16a085;
+    transform: translateY(-2px);
+}
+
+/* --- Tên sản phẩm và giá --- */
+.single-product h2 {
+    font-size: 16px;
+    margin-top: 12px;
+    min-height: 45px;
+    color: #333;
+}
+
+.product-carousel-price {
+    margin-top: 8px;
+}
+
+.product-carousel-price ins {
+    color: #27ae60;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.product-carousel-price del {
+    color: #999;
+    font-size: 14px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .single-product {
+        height: 380px;
+    }
+    .single-product img {
+        height: 200px;
+    }
+}

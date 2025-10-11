@@ -45,8 +45,9 @@ Route::get('/recently-viewed', [SanPhamController::class, 'recentlyViewed'])->na
 
 // Trang chi tiết sản phẩm
 Route::get('/product/{id}', [SanPhamController::class, 'show'])->name('product.show');
-
-
+//Danh sách TopSeller
+Route::get('/TopSeller', [SanPhamController::class, 'allTopSeller'])->name('TopSeller');
+//...
 Route::get('/san-pham/{id}', [SanPhamController::class, 'show'])->name('product.vietnamese');
 //Giả lập thêm sản phẩm vào recently views
 

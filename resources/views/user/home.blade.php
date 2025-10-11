@@ -195,7 +195,7 @@
                     <div class="col-md-4">
                         <div class="single-product-widget">
                                 <h2 class="product-wid-title">Top Sellers</h2>
-                                <a href="#" class="wid-view-more">View All</a>
+                                <a href="TopSeller" class="wid-view-more">View All</a>
                                     @if(!empty($topseller))
                                     {{-- {{ dd($topseller) }} --}}
                                         @foreach($topseller as $product)

@@ -104,7 +104,7 @@ class SanPhamService
         return view('single-product', compact('product'));
     }
 
-    public function topseller(int $limit = 3)
+    public function topseller(int $limit = 0)
     {
         return DB::select("
             SELECT MaSanPham AS id, 
@@ -118,6 +118,7 @@ class SanPhamService
             LIMIT ?
         ", [$limit]);
     }
+    
 
     public function getTop(int $limit = 3)
     {
