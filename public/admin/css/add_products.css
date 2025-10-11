@@ -54,7 +54,7 @@ button:hover {
 .custom-datalist {
     position: relative;
     width: 100%;
-    max-width: 400px; /* có thể tùy chỉnh */
+    max-width: 700px; /* có thể tùy chỉnh */
     margin-bottom: 20px;
 }
 
