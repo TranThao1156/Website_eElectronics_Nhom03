@@ -73,5 +73,32 @@
 @endsection
 
 @section('script')
+ <!-- Dùng CKEditor 5 bản Classic chính thức từ CDN -->
+ {{-- Khôi(Kiểm tra giá nhập, giá sau giảm, thêm ckeditor cho phần mô tả) --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            ClassicEditor
+                .create(document.querySelector('#mo_ta'), {
+                    toolbar: {
+                        items: [
+                            'heading', '|',
+                            'bold', 'italic', 'underline', 'link', '|',
+                            'bulletedList', 'numberedList', '|',
+                            'blockQuote', 'insertTable', 'undo', 'redo'
+                        ]
+                    },
+                    language: 'vi'
+                })
+                .then(editor => {
+                    console.log('✅ CKEditor 5 đã khởi tạo thành công');
+                })
+                .catch(error => {
+                    console.error('❌ Lỗi khởi tạo CKEditor 5:', error);
+                });
+        });
+    </script>
 <script src="/admin/js/addProduct.js"></script>
 @endsection
