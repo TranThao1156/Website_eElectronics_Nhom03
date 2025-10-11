@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 
 Route::prefix('backoffice')
-    ->middleware(['web'])
+    ->middleware(['web', \App\Http\Middleware\AdminAuth::class])
     ->group(function () {
         
     Route::get('/dashboard', function () {
