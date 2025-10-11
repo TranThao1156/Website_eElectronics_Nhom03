@@ -1,9 +1,14 @@
- body {
+* {
+    box-sizing: border-box;
+}
+
+body {
     font-family: Arial, sans-serif;
     background: #f5f7fa;
     margin: 0;
     padding: 40px;
 }
+
 .container {
     background: #fff;
     max-width: 700px;
@@ -12,29 +17,40 @@
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
+
 h2 {
     text-align: center;
     margin-bottom: 25px;
     color: #2c3e50;
 }
+
 label {
     display: block;
     margin-bottom: 6px;
     font-weight: bold;
     color: #34495e;
 }
-input, select, textarea {
+
+/* Các ô nhập liệu cùng kích thước */
+input, select, textarea, .datalist-input {
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px;
     margin-bottom: 18px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
 }
+
+/* Giới hạn chiều cao textarea cho đồng đều */
 textarea {
     resize: vertical;
+    min-height: 44px;
     height: 100px;
 }
+
+/* Nút bấm */
 button {
     display: block;
     width: 100%;
@@ -47,41 +63,30 @@ button {
     cursor: pointer;
     transition: background 0.3s;
 }
+
 button:hover {
     background: #16a085;
 }
-/* Container để tùy chỉnh input */
+
+/* Datalist container */
 .custom-datalist {
     position: relative;
     width: 100%;
-    max-width: 400px; /* có thể tùy chỉnh */
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
-/* Input đẹp hơn */
-.datalist-input {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: 0.3s all;
-    outline: none;
-}
-
-/* Hiệu ứng khi focus */
+/* Input có datalist */
 .datalist-input:focus {
     border-color: #1abc9c;
     box-shadow: 0 0 8px rgba(26, 188, 156, 0.5);
 }
 
-/* Placeholder đẹp hơn */
 .datalist-input::placeholder {
     color: #aaa;
     font-style: italic;
 }
 
-/* Tùy chỉnh datalist option (một số trình duyệt hỗ trợ) */
+/* Một số trình duyệt hỗ trợ style cho option */
 datalist option {
     padding: 8px 12px;
     font-size: 16px;
