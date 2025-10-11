@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ asset('admin/css/add_products.css') }}">
 @endsection
 
+
+
+
+
 @section('content')
 
 <div class="container">
@@ -13,12 +17,13 @@
 		<!-- Ảnh sản phẩm -->
         <label for="images">Ảnh sản phẩm</label>
 		<div class="image-upload-wrapper">
-			<input type="file" id="images" name="HinhAnh[]" accept="image/*" multiple>
+			<input type="file" id="images" name="HinhAnh[]" accept="image/*" multiple required>
 			<div class="image-preview-container" id="imagePreview"></div>
 		</div>
 		<!-- Tên sản phẩm -->
         <label for="ten">Tên sản phẩm</label>
         <input type="text" id="ten" name="Ten" placeholder="Nhập tên sản phẩm" required>
+        {{-- required sẽ tự kiểm tra nếu người dùng không nhập sẽ báo --}}
 		<!-- Số lượng -->
 		<label for="soluong">Số lượng</label>
         <input type="number" id="soluong" name="SoLuong" placeholder="Nhập số lượng" min="1" required>
@@ -42,13 +47,13 @@
 
 
         <label for="gia_nhap">Giá nhập (VNĐ)</label>
-        <input type="number" id="gia_nhap" name="GiaNhap" placeholder="Nhập giá nhập" required>
+        <input type="number" id="gia_nhap" name="GiaNhap" placeholder="Nhập giá nhập" required min="1000" max="1000000000">
 
         <label for="gia_sau_giam">Giá sau giảm (VNĐ)</label>
-        <input type="number" id="gia_sau_giam" name="GiaSauGiam" placeholder="Nhập giá sau giảm">
+        <input type="number" id="gia_sau_giam" name="GiaSauGiam" placeholder="Nhập giá sau giảm" min="1000" max="1000000000">
 		<!-- Mô tả sản phẩm -->
         <label for="mo_ta">Mô tả sản phẩm</label>
-        <textarea id="mo_ta" name="MoTa" placeholder="Nhập mô tả chi tiết sản phẩm"></textarea>
+        <textarea id="mo_ta" name="MoTa" placeholder="Nhập mô tả chi tiết sản phẩm" required></textarea>
 		<!-- Danh mục và tags -->
         <label for="danh_muc" class="form-label">Danh mục</label>
         <div class="custom-datalist">

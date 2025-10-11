@@ -41,3 +41,24 @@ function removeFile(fileName) {
     dt = newDt;
     imageInput.files = dt.files;
 }
+document.querySelector("form").addEventListener("submit", function (e) {
+    const giaNhap = parseFloat(document.getElementById("gia_nhap").value);
+    const giaSauGiam = parseFloat(document.getElementById("gia_sau_giam").value);
+
+    if (giaNhap > 1000000000) {
+        alert("⚠️ Giá nhập không được vượt quá 1.000.000.000 VNĐ");
+        e.preventDefault(); // ngăn submit
+        return;
+    }
+
+    if (giaSauGiam > 1000000000) {
+        alert("⚠️ Giá sau giảm không được vượt quá 1.000.000.000 VNĐ");
+        e.preventDefault();
+        return;
+    }
+
+    if (giaSauGiam > giaNhap) {
+        alert("⚠️ Giá sau giảm không được cao hơn giá nhập!");
+        e.preventDefault();
+    }
+});
