@@ -3,6 +3,7 @@
 use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\CaiDatController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Service\CaiDatService;
@@ -72,14 +73,15 @@ Route::get('/footer', function (CaiDatService $caiDatService) {
     return view('layouts.footer', compact('socialLinks'));
 });
 
+//Auth routes
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+// Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/resetpassword', [AuthController::class, 'showResetPassword'])->name('resetpassword');
+Route::post('/resetpassword', [AuthController::class, 'resetPassword'])->name('resetpassword.post');
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
 
 Route::get('/resetpassword', function () {
     return view('auth.resetpassword');

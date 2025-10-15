@@ -25,57 +25,53 @@
     <div class="limiter">
         <div class="container-login100" style="background-image: url('{{ asset('Auth/images/bg-01.jpg') }}');">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
-                    @csrf
-                    
-                    <span class="login100-form-logo">
-                        <i class="zmdi zmdi-landscape"></i>
-                    </span>
+                    @if (session('success'))
+                            <div class="alert alert-success text-center">
+                                 {{ session('success') ?? 'Đăng nhập thành công!' }}
+                            </div>  
+                        @endif
 
+                        @if (session('error'))
+                            <div class="alert alert-danger text-center">
+                                {{ session('error') ?? 'Đăng nhập thất bại! Vui lòng thử lại.' }}
+                            </div>
+                        @endif
+
+                <form class="login100-form validate-form" method="POST" action="{{ route('login.post') }}">
                     <span class="login100-form-title p-b-34 p-t-27">
-                        Log in
+                        Đăng nhập
                     </span>
-
-                    <!-- Username -->
-                    <div class="wrap-input100 validate-input" data-validate="Enter email">
-                        <input class="input100" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                    @csrf
+                    <!-- Tên đăng nhập -->
+                    <div class="wrap-input100 validate-input" data-validate="Nhập tên đăng nhập">
+                        <input class="input100" type="text" name="TenDangNhap" placeholder="Tên đăng nhập" value="{{ old('TenDangNhap') }}">
                         <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                        @error('email')
+                        @error('TenDangNhap')
                             <span class="text-danger small">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    <!-- Password -->
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="password" placeholder="Password">
+                    <!-- Mật khẩu -->
+                    <div class="wrap-input100 validate-input" data-validate="Nhập mật khẩu">
+                        <input class="input100" type="password" name="MatKhau" placeholder="Mật khẩu">
                         <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                        @error('password')
+                        @error('MatKhau')
                             <span class="text-danger small">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    <!-- Remember me -->
-                    <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
-                        <label class="label-checkbox100" for="ckb1">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <!-- Submit button -->
                     <div class="container-login100-form-btn">
                         <button type="submit" class="login100-form-btn">
-                            Login
+                            Đăng nhập
                         </button>
                     </div>
-
                     <!-- Links -->
                     <div class="text-center p-t-90">
                             <a class="txt1" href="{{ route('resetpassword') }}">
-                                Forgot Password?
+                                Đổi mật khâu?
                             </a>
                             <a class="txt1" href="{{ route('register') }}">
-                                &nbsp;&nbsp;&nbsp;Register?
+                                &nbsp;&nbsp;&nbsp;Đăng ký tài khoản?
                             </a>
                     </div>
                 </form>

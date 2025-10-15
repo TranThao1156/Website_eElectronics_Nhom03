@@ -548,3 +548,28 @@ iframe {
 
 
 
+/* Icon mặc định */
+.symbol-input100 {
+  position: absolute;
+  top: 12px;
+  left: 5px;
+  color: #fff;
+  font-size: 18px;
+  pointer-events: none;
+  transition: all 0.4s;
+}
+
+/* Khi focus hoặc có giá trị – đẩy icon lên cao hơn */
+.input100:focus ~ .symbol-input100,
+.has-val.input100 ~ .symbol-input100 {
+  top: -12px;           /* đẩy icon lên trên */
+  font-size: 14px;      /* thu nhỏ lại cho gọn */
+}
+select option {
+    background-color: #42088060; 
+    color: #ffffff; 
+}
+
+select option:hover {
+    background-color: #ffffff;
+}

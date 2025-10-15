@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ChucNang_Add_ProducController;
+use App\Http\Controllers\ChucNang_Add_ProductController;
 use App\Http\Controllers\SanPhamController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -14,9 +14,9 @@ Route::prefix('backoffice')
         return view ('backoffice.dashboard');
     })->name('dashboard');
 
-    Route::get('/add_product', [ChucNang_Add_ProducController::class, 'index'])->name('add_product.index');
+    Route::get('/add_product', [ChucNang_Add_ProductController::class, 'index'])->name('add_product.index');
 
-    Route::post('/sanpham/them', [ChucNang_Add_ProducController::class, 'store'])->name('add_product.store');
+    Route::post('/sanpham/them', [ChucNang_Add_ProductController::class, 'store'])->name('add_product.store');
 
     // Trang danh sách sản phẩm (admin) - load trực tiếp từ DB và trả view admin.product
     Route::get('/products', function (Request $request) {

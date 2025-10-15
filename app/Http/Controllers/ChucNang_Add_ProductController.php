@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-    use App\Service\ChucNang_Add_ProducService;
+    use App\Service\ChucNang_Add_ProductService;
     use Illuminate\Http\Request;
 
-    class ChucNang_Add_ProducController extends Controller
+    class ChucNang_Add_ProductController extends Controller
     {
         protected $ProducService;
 
-        public function __construct(ChucNang_Add_ProducService $producService)
+        public function __construct(ChucNang_Add_ProductService $producService)
         {
             $this->ProducService = $producService;
         }

@@ -29,60 +29,111 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('auth/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('auth/css/main.css') }}">
+    
 </head>
 <body>
 
     <div class="limiter">
         <div class="container-login100" style="background-image: url('{{ asset('auth/images/bg-01.jpg') }}');">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
+                <form class="login100-form validate-form" method="POST" action="{{ route('register.post') }}">
                     @csrf
 
+                    {{-- Hiển thị thông báo thành công hoặc lỗi --}}
+                    @if (session('success'))
+                        <div class="alert alert-success text-center">{{ session('success') }}</div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger text-center">{{ session('error') }}</div>
+                    @endif
+
+                    {{-- Hiển thị lỗi validate --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul style="margin: 0; padding-left: 20px;">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <span class="login100-form-title p-b-34 p-t-27">
-                        Sign Up
+                        Đăng ký tài khoản
                     </span>
 
-                    <div class="wrap-input100 validate-input" data-validate="Full Name">
-                        <input class="input100" type="text" name="name" placeholder="Full Name" required>
+                    <!-- Tên đăng nhập -->
+                    <div class="wrap-input100 validate-input" data-validate="Tên đăng nhập bắt buộc">
+                        <input class="input100" type="text" name="TenDangNhap" placeholder="Tên đăng nhập" value="{{ old('TenDangNhap') }}" required>
                         <span class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Email">
-                        <input class="input100" type="email" name="email" placeholder="Email" required>
+                    <!-- Email -->
+                    <div class="wrap-input100 validate-input" data-validate="Email hợp lệ là bắt buộc">
+                        <input class="input100" type="email" name="Email" placeholder="Email" value="{{ old('Email') }}" required>
                         <span class="focus-input100" data-placeholder="&#xf15a;"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" type="text" name="username" placeholder="Username" required>
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                   <!-- Ngày sinh -->
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng chọn ngày sinh">
+                        <input class="input100" type="date" name="NgaySinh" required>
+                        
+                        <span class="symbol-input100"><i class="fa fa-calendar"></i></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="password" placeholder="Password" required>
+                    <!-- Giới tính -->
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng chọn giới tính">
+                        <select class="input100" name="GioiTinh" required>
+                            <option value="">-- Chọn giới tính --</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                        
+                        <span class="symbol-input100"><i class="fa fa-venus-mars"></i></span>
+                    </div>
+
+                    <!-- Địa chỉ -->
+                    <div class="wrap-input100 validate-input" data-validate="Vui lòng nhập địa chỉ">
+                        <input class="input100" type="text" name="DiaChi" placeholder="Địa chỉ" required>
+                        
+                        <span class="symbol-input100"><i class="fa fa-map-marker"></i></span>
+                    </div>
+
+
+
+                    <!-- Mật khẩu -->
+                    <div class="wrap-input100 validate-input" data-validate="Nhập mật khẩu">
+                        <input class="input100" type="password" name="MatKhau" placeholder="Mật khẩu" required>
                         <span class="focus-input100" data-placeholder="&#xf191;"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Repeat password">
-                        <input class="input100" type="password" name="password_confirmation" placeholder="Repeat Password" required>
+                    <!-- Xác nhận mật khẩu -->
+                    <div class="wrap-input100 validate-input" data-validate="Xác nhận mật khẩu">
+                        <input class="input100" type="password" name="MatKhau_confirmation" placeholder="Xác nhận mật khẩu" required>
                         <span class="focus-input100" data-placeholder="&#xf191;"></span>
                     </div>
 
+                    <!-- Checkbox điều khoản -->
                     <div class="contact100-form-checkbox">
                         <input class="input-checkbox100" id="ckb1" type="checkbox" name="terms" required>
                         <label class="label-checkbox100" for="ckb1">
-                            I agree to <b>the terms of user</b>
+                            Tôi đồng ý với <b>điều khoản sử dụng</b>
                         </label>
                     </div>
 
+                    <!-- Nút đăng ký -->
                     <div class="container-login100-form-btn">
                         <button type="submit" class="login100-form-btn">
-                            Sign Up
+                            Đăng ký
                         </button>
                     </div>
 
+                    <!-- Link đăng nhập -->
                     <div class="text-center p-t-90">
                         <a class="txt1" href="{{ route('login') }}">
-                            → Sign In
+                            → Đăng nhập
                         </a>
                     </div>
                 </form>
