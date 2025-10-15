@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Service;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class ChucNang_Add_ProductService
+class BackOffice_SpService
 {
     // Lấy tất cả danh mục (active)
     public function getAll()
@@ -22,7 +23,7 @@ class ChucNang_Add_ProductService
     public function handleAddProduct(array $data)
     {
         try {
-            // ✅ 1. Kiểm tra người dùng đăng nhập
+            // ✅ Kiểm tra người dùng đăng nhập
             $user = Auth::user();
             if (!$user) {
                 return [
@@ -32,7 +33,7 @@ class ChucNang_Add_ProductService
             }
             $IDUser = $user->id;
 
-            // ✅ 2. Kiểm tra hoặc thêm danh mục
+            // ✅ Kiểm tra hoặc thêm danh mục
             $sqlCheckDanhMuc = "SELECT MaDanhMuc FROM danhmuc WHERE Ten = ? LIMIT 1";
             $danhMuc = DB::selectOne($sqlCheckDanhMuc, [$data['MaDanhMuc']]);
 
@@ -43,7 +44,7 @@ class ChucNang_Add_ProductService
                 $maDanhMuc = DB::getPdo()->lastInsertId();
             }
 
-            // ✅ 3. Kiểm tra hoặc thêm nhà cung cấp
+            // ✅ Kiểm tra hoặc thêm nhà cung cấp
             $sqlCheckNCC = "SELECT MaNhaCungCap FROM nhacungcap WHERE Ten = ? LIMIT 1";
             $ncc = DB::selectOne($sqlCheckNCC, [$data['MaNhaCungCap']]);
 
@@ -54,7 +55,7 @@ class ChucNang_Add_ProductService
                 $maNCC = DB::getPdo()->lastInsertId();
             }
 
-            // ✅ 4. Xử lý ảnh upload
+            // ✅ Xử lý ảnh upload
             $imagePaths = [];
             if (isset($data['HinhAnh']) && is_array($data['HinhAnh'])) {
                 foreach ($data['HinhAnh'] as $image) {
@@ -68,7 +69,7 @@ class ChucNang_Add_ProductService
 
             $imagesString = implode(',', $imagePaths);
 
-            // ✅ 5. Thêm sản phẩm vào database
+            // ✅ Thêm sản phẩm vào database
             $sqlInsertSP = "
                 INSERT INTO sanpham 
                 (Ten, HinhAnh, IDUser, SoLuong, GiaNhap, GiaSauGiam, MoTa, MaDanhMuc, MaNhaCungCap, Tags, NgayCapNhat, TrangThai)

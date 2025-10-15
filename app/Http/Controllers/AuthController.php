@@ -67,11 +67,13 @@ class AuthController extends Controller
         //     return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
         // }
          if ($user && $request->MatKhau === $user->MatKhau) {
-        session(['user' => $user]);
-        return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
-    }
-
-        return back()->withErrors(['TenDangNhap' => 'Tên đăng nhập hoặc mật khẩu không đúng!'])->withInput();
+            session(['user' => $user]);
+            if ($user->Role == 1) {
+                return redirect('/backoffice/add_product')->with('success', 'Đăng nhập thành công!');
+            } else {
+                return redirect()->route('home')->with('success', 'Đăng nhập thành công (Người dùng)!');
+            }
+        }
     }
 
     public function resetPassword(Request $request)
