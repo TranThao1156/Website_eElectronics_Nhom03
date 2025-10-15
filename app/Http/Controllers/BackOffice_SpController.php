@@ -18,7 +18,7 @@ class BackOffice_SpController extends Controller
     public function listProducts()
     {
         $dsSanPham = $this->ProducService->getAllProducts();
-        return view('backoffice.list_products', compact('dsSanPham'));
+        return view('backoffice.listproduct', compact('dsSanPham'));
     }
 
     // Trang thêm sản phẩm

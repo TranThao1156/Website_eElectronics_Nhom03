@@ -109,7 +109,7 @@ class BackOffice_SpService
                 SELECT 
                     MaSanPham, 
                     Ten, 
-                    HinhAnh, 
+                    SUBSTRING_INDEX(HinhAnh, ',', 1) as HinhAnh,
                     IDUser, 
                     SoLuong, 
                     MaNhaCungCap, 

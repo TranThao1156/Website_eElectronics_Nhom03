@@ -1,27 +1,19 @@
 @extends('layouts.layout_backoffice')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('admin/css/listProduct.css') }}">
+
 @section('content')
 <div class="row">
     <div class="col-lg-12">
         <h2 class="page-header">Danh sách sản phẩm</h2>
 
         <p>
-            <a href="{{ route('add_product') }}" class="btn btn-primary">
+            <a href="{{ route('add_product.index') }}" class="btn btn-primary">
                 + Thêm sản phẩm
             </a>
         </p>
 
-        <style>
-            .prod-thumb {
-                width: 64px;
-                height: 64px;
-                object-fit: cover;
-                border-radius: 4px;
-            }
-            .table td {
-                vertical-align: middle;
-            }
-        </style>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -39,36 +31,15 @@
                         <th>Trạng thái</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @forelse ($dsSanPham as $index => $p)
                         <tr>
                             {{-- Ảnh --}}
                             <td class="text-center">
-                                @php
-                                    $img = null;
-                                    if (!empty($p->HinhAnh)) {
-                                        $decoded = @json_decode($p->HinhAnh, true);
-                                        $candidates = is_array($decoded)
-                                            ? $decoded
-                                            : (strpos($p->HinhAnh, ',') !== false
-                                                ? explode(',', $p->HinhAnh)
-                                                : [$p->HinhAnh]);
-                                        foreach ($candidates as $c) {
-                                            $c = trim($c);
-                                            if ($c && file_exists(public_path($c))) {
-                                                $img = $c;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                @endphp
-                                @if ($img)
-                                    <img src="{{ asset($img) }}" class="prod-thumb" alt="Ảnh sản phẩm">
-                                @else
-                                    <div style="width:64px;height:64px;background:#f8f9fa;border:1px solid #ddd;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:12px;">
-                                        No image
-                                    </div>
-                                @endif
+                                <img src="{{ asset('img/products/' . $p->HinhAnh) }}" 
+                                                alt="{{ $p->Ten}}" 
+                                                class="fixed-product-image">
                             </td>
 
                             {{-- STT --}}

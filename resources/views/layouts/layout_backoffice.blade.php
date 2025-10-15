@@ -290,7 +290,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i> Sản phẩm</a>
+                            <a href="{{ route('admin.sanpham') }}"><i class="fa fa-table fa-fw"></i> Sản phẩm</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>

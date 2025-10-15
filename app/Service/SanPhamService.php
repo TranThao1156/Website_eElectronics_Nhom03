@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 class SanPhamService
 {
-    //Thảo - Lấy tất cả sản phẩm
+    //Lấy tất cả sản phẩm
     public function getAll()
     {
         return DB::select('SELECT * FROM sanpham WHERE TrangThai = 1');

@@ -1,0 +1,91 @@
+/* Tổng thể */
+.page-header {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* Bảng sản phẩm */
+.table {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.table th, 
+.table td {
+    vertical-align: middle !important;
+    text-align: center;
+    padding: 10px 12px;
+}
+
+.table thead th {
+    background-color: #f4f6f9;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+    background-color: #f9fbff;
+    transition: background-color 0.2s ease;
+}
+
+/* Ảnh sản phẩm */
+.fixed-product-image {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fixed-product-image:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Căn chỉnh các cột chữ */
+td {
+    font-size: 14px;
+    color: #444;
+}
+
+td:nth-child(3) { /* Tên sản phẩm */
+    text-align: left;
+    font-weight: 500;
+}
+
+/* Badge trạng thái */
+.badge {
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d !important;
+}
+
+/* Nút Thêm sản phẩm */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
