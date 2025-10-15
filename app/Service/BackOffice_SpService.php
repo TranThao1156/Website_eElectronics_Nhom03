@@ -4,7 +4,7 @@ namespace App\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class ChucNang_Add_ProductService
+class BackOffice_SpService
 {
     // Lấy tất cả danh mục (active)
     public function getAll()
@@ -99,4 +99,45 @@ class ChucNang_Add_ProductService
             ];
         }
     }
+
+        // ✅ Lấy danh sách tất cả sản phẩm (có thể lọc theo trạng thái hoặc tìm kiếm)
+    public function getAllProducts($onlyActive = true)
+    {
+        //Lấy danh sách sản phẩm
+        try {
+            $query = "
+                SELECT 
+                    MaSanPham, 
+                    Ten, 
+                    HinhAnh, 
+                    IDUser, 
+                    SoLuong, 
+                    MaNhaCungCap, 
+                    GiaNhap, 
+                    GiaSauGiam, 
+                    MoTa, 
+                    NgayCapNhat, 
+                    TrangThai, 
+                    MaDanhMuc, 
+                    Tags
+                FROM sanpham
+            ";
+
+            if ($onlyActive) {
+                $query .= " WHERE TrangThai = 1";
+            }
+
+            $query .= " ORDER BY NgayCapNhat DESC";
+
+            $result = DB::select($query);
+
+            return $result;
+        } catch (\Exception $e) {
+            return [
+                'status' => 'error',
+                'message' => 'Lỗi khi lấy danh sách sản phẩm: ' . $e->getMessage()
+            ];
+        }
+    }
+
 }
