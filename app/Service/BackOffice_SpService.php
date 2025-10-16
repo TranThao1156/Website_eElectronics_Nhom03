@@ -72,7 +72,7 @@ class BackOffice_SpService
             // ✅ Thêm sản phẩm vào database
             $sqlInsertSP = "
                 INSERT INTO sanpham 
-                (Ten, HinhAnh, IDUser, SoLuong, GiaNhap, GiaSauGiam, MoTa, MaDanhMuc, MaNhaCungCap, Tags, NgayCapNhat, TrangThai)
+                (Ten, HinhAn    h, IDUser, SoLuong, GiaNhap, GiaSauGiam, MoTa, MaDanhMuc, MaNhaCungCap, Tags, NgayCapNhat, TrangThai)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 1)
             ";
 
