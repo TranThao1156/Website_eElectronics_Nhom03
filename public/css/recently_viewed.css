@@ -1,0 +1,32 @@
+.single-product {
+    /* Tăng chiều rộng để ảnh có thể to hơn */
+    max-width: 100%; /* hoặc 100% trong col-md-3 để ko vượt layout */
+}
+
+.product-f-image {
+    height: 280px; /* tăng chiều cao ảnh */
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-f-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ảnh không méo, cắt vừa container */
+    transition: transform 0.3s ease;
+}
+
+.single-product:hover .product-f-image img {
+    transform: scale(1.05); /* zoom nhẹ khi hover */
+}
+.section-title {
+    font-size: 30px;
+    text-align: center;      /* Căn giữa chữ */
+    margin-top: 30px;        /* Khoảng cách cách xa phần trên */
+    margin-bottom: 50px;     /* Khoảng cách cách xa phần danh sách sản phẩm */
+    font-weight: 500;        /* Cho chữ đậm đẹp hơn (tuỳ chọn) */
+}
+.row {
+    margin-bottom: 60px; /* Hoặc padding-bottom: 60px; */
+}
+
