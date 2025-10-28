@@ -172,4 +172,47 @@ border-radius: 5px;
     }
 }
 
+.custom-datalist {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.custom-datalist .datalist-input {
+    flex: 1;
+    height: 38px; /* cùng chiều cao với nút */
+    padding: 6px 10px;
+}
+/* Nút thêm danh mục (dấu +) */
+.custom-datalist .btn-add {
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 5px rgba(26, 188, 156, 0.3);
+}
+
+/* Hiệu ứng hover */
+.custom-datalist .btn-add:hover {
+    background-color: #16a085;
+    transform: scale(1.08);
+    box-shadow: 0 3px 8px rgba(26, 188, 156, 0.4);
+}
+
+/* Hiệu ứng khi nhấn */
+.custom-datalist .btn-add:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(26, 188, 156, 0.3);
+}
+
+
 

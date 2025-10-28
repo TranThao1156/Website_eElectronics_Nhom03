@@ -4,10 +4,8 @@
     <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('Auth/images/icons/favicon.ico') }}"/>
-
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Auth/vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
@@ -66,14 +64,14 @@
                         </button>
                     </div>
                     <!-- Links -->
-                    <div class="text-center p-t-90">
+                    <!-- <div class="text-center p-t-90">
                             <a class="txt1" href="{{ route('resetpassword') }}">
                                 Đổi mật khâu?
                             </a>
                             <a class="txt1" href="{{ route('register') }}">
                                 &nbsp;&nbsp;&nbsp;Đăng ký tài khoản?
                             </a>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

@@ -1,30 +1,39 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice_SpController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Http\Middleware\AuthMiddleware;
+use App\Models\BackOffice_Sp;
 
-Route::prefix('backoffice')
-    ->middleware(['web'])
-    ->group(function () {
+Route::middleware('web')->group(function () {
 
-        // Trang dashboard
-        Route::get('/dashboard', function () {
-            return view('backoffice.dashboard');
-        })->name('dashboard');
-
-        // 👉 Trang thêm sản phẩm
-        Route::get('/add_product', [BackOffice_SpController::class, 'index'])
-            ->name('add_product.index');
-
-        // 👉 Xử lý thêm sản phẩm
-        Route::post('/sanpham/them', [BackOffice_SpController::class, 'store'])
-            ->name('add_product.store');
-
-        // 👉 Trang danh sách sản phẩm
-        Route::get('/products', function (Request $request) {
-            $products = DB::table('sanpham')->where('TrangThai', 1)->paginate(10);
-            return view('backoffice.product', ['products' => $products]);
-        })->name('backoffice.products');
+    // --- LOGIN & REGISTER ---
+    Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+    
     });
+
+    // Truy cập vào http://localhost:8000/check-slug để được check slug
+    Route::get('/check-slug', function () {
+        $products = (new BackOffice_Sp())->getAllProducts();
+
+        foreach ($products as $product) {
+            $slug = Str::slug($product->Ten) . '-' . $product->MaSanPham;
+            echo "Sản phẩm: {$product->Ten} | Slug: {$slug} <br>";
+        }
+    });
+
+    // --- BACKOFFICE (cần login) ---
+    Route::middleware([AuthMiddleware::class])->group(function () {
+        Route::get('/backoffice/dashboard', function () {
+            return view('backoffice.dashboard');
+        });
+        
+        Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    });
+});

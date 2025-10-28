@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Service\CaiDatService;
+use App\Models\CaiDat;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-   public function boot(CaiDatService $caiDatService)
+   public function boot(CaiDat $caiDatService)
     {
         $socialLinks = $caiDatService->getSocialLinks();
         View::share('socialLinks', $socialLinks);

@@ -80,8 +80,6 @@
             $(this).removeClass('active');
             showPass = 0;
         }
-        
     });
 
-    
 })(jQuery);
