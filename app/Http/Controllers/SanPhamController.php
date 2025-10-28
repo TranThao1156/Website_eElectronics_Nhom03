@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Service\SanPhamService;
+use App\Models\SanPham;
 use Illuminate\Http\Request;
 
 class SanPhamController extends Controller
 {
-    protected $SanPhamService;
+    protected $SanPham;
 
-    public function __construct(SanPhamService $products)
+    public function __construct(SanPham $products)
     {
-        $this->SanPhamService = $products;
+        $this->SanPham = $products;
     }
 
     // Trang danh sách sản phẩm
     public function index(Request $request)
     {
-        $dsSanPham = $this->SanPhamService->getAll();
+        $dsSanPham = $this->SanPham->getAll();
 
-        $latestProducts = $this->SanPhamService->getLatestProducts(20); // Lấy 10 sản phẩm mới nhất
+        $latestProducts = $this->SanPham->getLatestProducts(20); // Lấy 10 sản phẩm mới nhất
 
-        $topSellers = $this->SanPhamService->topseller(3);
+        $topSellers = $this->SanPham->topseller(3);
 
         // Lấy danh sách sản phẩm đã xem gần đây
         $recentlyViewed = $request->session()->get('recently_viewed', []);
 
         $recentProducts = [];
         foreach ($recentlyViewed as $MaSanPham) {
-            $sp = $this->SanPhamService->find($MaSanPham);
+            $sp = $this->SanPham->find($MaSanPham);
             if ($sp) {
                 $recentProducts[] = $sp;
             }
@@ -47,7 +47,7 @@ class SanPhamController extends Controller
     // Trang chi tiết sản phẩm
     public function show(Request $request, $MaSanPham)
     {
-        $sp = $this->SanPhamService->find($MaSanPham);
+        $sp = $this->SanPham->find($MaSanPham);
         if (!$sp) {
             abort(404, 'Không tìm thấy sản phẩm');
         }
@@ -68,23 +68,19 @@ class SanPhamController extends Controller
 
         $recentProducts = [];
         foreach ($recentlyViewed as $MaSanPham) {
-            $sp = $this->SanPhamService->find($MaSanPham);
+            $sp = $this->SanPham->find($MaSanPham);
             if ($sp) {
                 $recentProducts[] = $sp;
             }
         }
-
         return view('user.recently-viewed', [
             'recentProducts' => $recentProducts
         ]);
     }
     public function allTopSeller()
     {
-        $topseller = $this->SanPhamService->topseller(50); // Không truyền limit => lấy toàn bộ
+        $topseller = $this->SanPham->topseller(50); // Không truyền limit => lấy toàn bộ
         return view('user.TopSeller', compact('topseller'));
     }
-    
-    
-
 }
 

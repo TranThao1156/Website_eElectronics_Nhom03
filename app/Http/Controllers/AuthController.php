@@ -1,115 +1,94 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
+use Illuminate\Http\Request;
+use App\Models\Auth;
 
 class AuthController extends Controller
 {
-    // Hiển thị form đăng nhập
+    protected $authService;
+
+    public function __construct(Auth $authService)
+    {
+        $this->authService = $authService;
+    }
+
+    /**
+     * Hiển thị trang đăng nhập
+     */
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // Hiển thị form đăng ký
+    /**
+     * Hiển thị trang đăng ký
+     */
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    // Xử lý đăng ký (dùng DB facade, không dùng model)
+    /**
+     * Xử lý đăng ký
+     */
     public function register(Request $request)
     {
         $request->validate([
-            'TenDangNhap' => 'required|string|max:50|unique:nguoidung,TenDangNhap',
-            'Email' => 'required|email|unique:nguoidung,Email',
-            'MatKhau' => 'required|string|min:6|confirmed',
-            'SoDienThoai' => 'nullable|string|max:20',
-            'NgaySinh' => 'nullable|date',
-            'GioiTinh' => 'nullable|string|max:10',
-            'DiaChi' => 'nullable|string|max:255',
+            'TenDangNhap' => 'required|min:4|max:50|unique:nguoidung,TenDangNhap',
+            'MatKhau'     => 'required|min:6',
         ]);
 
-        
-            DB::table('nguoidung')->insert([
-                'TenDangNhap' => $request->TenDangNhap,
-                // 'MatKhau' => Hash::make($request->MatKhau),//Mã hóa mật khẩu
-                'MatKhau' => $request->MatKhau,
-                'Email' => $request->Email,
-                'SoDienThoai' => $request->SoDienThoai,
-                'NgaySinh' => $request->NgaySinh,
-                'GioiTinh' => $request->GioiTinh,
-                'DiaChi' => $request->DiaChi,
-                'TrangThai' => 1,
-                'Role' => 0,
-                
-            ]);
-        
-        return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
+        $data = $request->all();
+
+        $this->authService->registerUser($data);
+
+        return redirect()->route('login')->with('success', 'Đăng ký thành công! Mời đăng nhập.');
     }
 
-    // Xử lý đăng nhập
+    /**
+     * Xử lý đăng nhập
+     */
     public function login(Request $request)
     {
         $request->validate([
             'TenDangNhap' => 'required|string',
-            'MatKhau' => 'required|string',
+            'MatKhau'     => 'required|string',
         ]);
 
-        $user = DB::table('nguoidung')->where('TenDangNhap', $request->TenDangNhap)->first();
+        $user = $this->authService->checkLogin($request->TenDangNhap, $request->MatKhau);
 
-        // if ($user && Hash::check($request->MatKhau, $user->MatKhau)) {// dùng khi ma hóa mật khẩu
-        //     session(['user' => $user]);
-        //     return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
-        // }
-         if ($user && $request->MatKhau === $user->MatKhau) {
-            session(['user' => $user]);
-            if ($user->Role == 1) {
-                return redirect('/backoffice/add_product')->with('success', 'Đăng nhập thành công!');
-            } else {
-                return redirect()->route('home')->with('success', 'Đăng nhập thành công (Người dùng)!');
-            }
+        if (!$user) {
+            return redirect()->back()->with('error', 'Sai tên đăng nhập hoặc mật khẩu!');
         }
-    }
 
-    public function resetPassword(Request $request)
-        {   
-        $request->validate([
-            'current_password' => 'required|string',
-            'new_password' => 'required|string|min:6|confirmed',
+        // Lưu session đúng chuẩn middleware
+        session([
+            'user' => [
+                'IDUser'      => $user->IDUser,
+                'TenDangNhap' => $user->TenDangNhap,
+                'Role'        => $user->Role,
+            ]
         ]);
 
-        $user = session('user');
-
-        // Lấy user từ database
-        $dbUser = DB::table('nguoidung')->where('IDUser', $user->IDUser)->first();
-
-        if (!$dbUser || !Hash::check($request->current_password, $dbUser->MatKhau)) {
-            return back()->with('error', 'Mật khẩu hiện tại không đúng!');
+        if (intval($user->Role) === 2) {
+            session(['admin' => true]);
+            return redirect()->to('/backoffice/dashboard')->with('success', 'Đăng nhập quản trị thành công!');
         }
 
-        // Cập nhật mật khẩu mới
-        DB::table('nguoidung')
-            ->where('IDUser', $user->IDUser)
-            ->update(['MatKhau' => Hash::make($request->new_password)]);
 
-        // Xóa session và yêu cầu đăng nhập lại
-        session()->forget('user');
+        // Người dùng bình thường
+        return redirect('/')->with('success', 'Đăng nhập thành công!');
 
-        return redirect()->route('login')->with('success', 'Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
     }
 
-    // Đăng xuất
-    // public function logout()
-    // {
-    //     session()->forget('user');
-    //     return redirect()->route('login')->with('success', 'Bạn đã đăng xuất!');
-    // }
-
-    // Dashboard (ví dụ)
-  
+    /**
+     * Đăng xuất
+     */
+    public function logout()
+    {
+        session()->forget(['user', 'admin', 'is_admin_logged_in']);
+        return redirect()->route('login')->with('success', 'Đã đăng xuất!');
+    }
 }

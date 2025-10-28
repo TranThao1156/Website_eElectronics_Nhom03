@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Service\LienHeService;
+use App\Models\LienHe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class LienHeController extends Controller
 {
     protected $lienHeService;
-    public function __construct(LienHeService $lienHe)
+    public function __construct(LienHe $lienHe)
     {
         $this->lienHeService = $lienHe;
     }

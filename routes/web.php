@@ -4,88 +4,85 @@ use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\CaiDatController;
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BackOffice_SpController;
+use App\Http\Controllers\DanhMucController;
+use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
-use App\Service\CaiDatService;
+use App\Models\CaiDat;
 
+// -------------------------
+// TRANG NGƯỜI DÙNG
 
-//Trang chủ
+// Trang chủ
 Route::get('/', [SanPhamController::class, 'index'])->name('home');
 
-//hóa đơn
-Route::get('/checkout', function () {
-    return view('user.checkout');
-})->name('checkout');
+// Danh sách sản phẩm
+Route::get('/shop', fn() => view('user.shop'))->name('shop');
 
-//Danh sách
-Route::get('/shop', function () {
-    return view('user.shop');
-})->name('shop');
+// Chi tiết sản phẩm (demo)
+Route::get('/single-product', fn() => view('user.single-product'))->name('single-product');
 
-// Chi tiết
-Route::get('/single-product', function () {
-    return view('user.single-product');
-})->name('single-product');
-//Giỏ hàng
-Route::get('/cart', function () {
-    return view('user.cart');
-})->name('cart');
-
-//Liên hệ
-// Hiển thị form
+// Liên hệ
 Route::get('/contact', [LienHeController::class, 'index'])->name('contact');
-
-// Lưu dữ liệu từ form
 Route::post('/contact', [LienHeController::class, 'store'])->name('contact.store');
 
-// Trang danh sách sản phẩm
+// Danh sách sản phẩm
 Route::get('/products', [SanPhamController::class, 'index'])->name('products.index');
 
-//Danh sách sản phẩm đã xem gần đây
+// Đã xem gần đây
 Route::get('/recently-viewed', [SanPhamController::class, 'recentlyViewed'])->name('recently.viewed');
 
-// Trang chi tiết sản phẩm
+// Chi tiết sản phẩm
 Route::get('/product/{id}', [SanPhamController::class, 'show'])->name('product.show');
-//Danh sách TopSeller
+
+// Top Seller
 Route::get('/TopSeller', [SanPhamController::class, 'allTopSeller'])->name('TopSeller');
-//...
+
+// Sản phẩm tiếng Việt
 Route::get('/san-pham/{id}', [SanPhamController::class, 'show'])->name('product.vietnamese');
-//Giả lập thêm sản phẩm vào recently views
 
-Route::get('/test-add-view/{id}', function (Request $request, $id) {
-    $recentlyViewed = $request->session()->get('recently_viewed', []);
-
-    // Xóa trùng và thêm sản phẩm mới nhất lên đầu
-    $recentlyViewed = array_diff($recentlyViewed, [$id]);
-    array_unshift($recentlyViewed, $id);
-
-    // Giới hạn 5 sản phẩm
-    $recentlyViewed = array_slice($recentlyViewed, 0, 5);
-
-    $request->session()->put('recently_viewed', $recentlyViewed);
-
-    return redirect()->route('home')
-        ->with('success', "Đã thêm sản phẩm ID {$id} vào Recently Viewed!");
-});
-
-Route::get('/footer', function (CaiDatService $caiDatService) {
+// Footer động
+Route::get('/footer', function (CaiDat $caiDatService) {
     $socialLinks = $caiDatService->getSocialLinks();
     return view('layouts.footer', compact('socialLinks'));
 });
 
-//Auth routes
+// -------------------------
+// (ĐĂNG NHẬP / ĐĂNG KÝ)
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-// Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Reset mật khẩu
 Route::get('/resetpassword', [AuthController::class, 'showResetPassword'])->name('resetpassword');
 Route::post('/resetpassword', [AuthController::class, 'resetPassword'])->name('resetpassword.post');
 
+// -------------------------
+//  ROUTE YÊU CẦU ĐĂNG NHẬP
 
-Route::get('/resetpassword', function () {
-    return view('auth.resetpassword');
-})->name('resetpassword');
+Route::middleware([AuthMiddleware::class])->group(function () {
 
-// Nhúng thêm routes backoffice
-require __DIR__.'/backoffice.php';
+    // Giỏ hàng
+    Route::get('/cart', fn() => view('user.cart'))->name('cart');
+
+    // Thanh toán
+    Route::get('/checkout', fn() => view('user.checkout'))->name('checkout');
+
+    // Dashboard backoffice
+    Route::get('/backoffice/dashboard', fn() => view('backoffice.dashboard'))->name('dashboard');
+
+    // Sản phẩm admin
+    Route::get('/sanpham', [BackOffice_SpController::class, 'listProducts'])->name('admin.sanpham');
+    Route::get('/add_product', [BackOffice_SpController::class, 'index'])->name('add_product.index');
+    Route::post('/sanpham/them', [BackOffice_SpController::class, 'store'])->name('add_product.store');
+
+    if (file_exists(__DIR__ . '/backoffice.php')) {
+        require __DIR__ . '/backoffice.php';
+    }
+});
+
+
+
+Route::post('/api/category/add', [DanhMucController::class, 'ajaxAdd'])->name('category.ajaxAdd');

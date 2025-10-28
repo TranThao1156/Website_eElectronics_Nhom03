@@ -263,9 +263,9 @@
                             <!-- Single product -->
                             <div class="col-md-4">
                                     @php
-                                        // Inline Top New widget: use SanPhamService to keep product queries centralized
-                                        $sanPhamService = app(\App\Service\SanPhamService::class);
-                                        $items = $sanPhamService->getTop(3);
+                                        // Inline Top New widget: use SanPham to keep product queries centralized
+                                        $sanPham = app(\App\Models\SanPham::class);
+                                        $items = $sanPham->getTop(3);
                                     @endphp
 
                                 @if(isset($items) && count($items))

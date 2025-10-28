@@ -1,16 +1,11 @@
 <?php
-namespace App\Service;
-use Illuminate\Support\Facades\DB;
 
-class TopNewService
+namespace App\Models;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+
+class TopNew extends Model
 {
-    /**
-     * Return top new products. Tries several common product table names and
-     * returns an empty collection if none exists.
-     *
-     * @param int $limit
-     * @return \Illuminate\Support\Collection
-     */
     public function getTop(int $limit = 3)
     {
         $tables = ['sanpham', 'products', 'product', 'san_pham'];

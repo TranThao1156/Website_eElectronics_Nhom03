@@ -1,8 +1,10 @@
 <?php
-namespace App\Service;
-use Illuminate\Support\Facades\DB;
 
-class LienHeService
+namespace App\Models;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+
+class LienHe extends Model
 {
     // Lấy tất cả liên hệ
     public function getAll()
@@ -23,13 +25,13 @@ class LienHeService
     }
 
     // Cập nhật liên hệ
-    public function update($id, $data)
+    public function updateLH($id, $data)
     {
         return DB::table('lienhe')->where('MaLienHe', $id)->update($data);
     }
 
     // Xóa liên hệ
-    public function delete($id)
+    public function deleteLH($id)
     {
         return DB::table('lienhe')->where('MaLienHe', $id)->delete();
     }

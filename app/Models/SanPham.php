@@ -1,17 +1,18 @@
 <?php
-namespace App\Service;
 
+namespace App\Models;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
-class SanPhamService
+class SanPham extends Model
 {
-    //Thảo - Lấy tất cả sản phẩm
+    //Lấy tất cả sản phẩm
     public function getAll()
     {
         return DB::select('SELECT * FROM sanpham WHERE TrangThai = 1');
     }
 
-    //Thảo - Tìm sản phẩm theo mã để hiển thị lên recently viewed
+    //Tìm sản phẩm theo mã để hiển thị lên recently viewed
     public function find($MaSanPham)
     {
         return DB::selectOne("
@@ -79,29 +80,3 @@ class SanPhamService
         ", [$limit]);
     }
 }
-
-
-    // public function findById(int $id)
-    // {
-    //     return DB::selectOne("
-    //         SELECT MaSanPham AS id,
-    //         Ten AS TenSanPham,
-    //         SUBSTRING_INDEX(HinhAnh, ',', 1) AS HinhAnh,
-    //         GiaSauGiam AS Gia,
-    //         MoTa,
-    //         ChiTietKyThuat,
-    //         DanhMuc
-    //         FROM sanpham
-    //         WHERE MaSanPham = ?", [$id]);
-    // }
-
-    // public function show($id)
-    // {
-    //     $product = $this->find($id);
-
-    //     if (!$product) {
-    //         abort(404, 'Sản phẩm không tồn tại');
-    //     }
-
-    //     return view('single-product', compact('product'));
-    // }

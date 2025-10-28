@@ -1,14 +1,19 @@
 <?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CaiDat;
 use Illuminate\Support\Facades\View;
-use App\Service\CaiDatService;
-class AppServiceProvider extends ServiceProvider
+
+class CaiDatController extends Controller
 {
-    public function boot(CaiDatService $caiDatService)
+    // Hàm này bạn có thể gọi trong AppServiceProvider để chia sẻ toàn cục
+    public static function boot()
     {
-        $caidat = $caiDatService->getCaiDat();
-        $social = $caiDatService->getSocialLinks();
+        $caidat = CaiDat::getThongTin();
+        $socialLinks = CaiDat::getSocialLinks();
 
         View::share('caidat', $caidat);
-        View::share('social', $social);
+        View::share('socialLinks', $socialLinks);
     }
 }
