@@ -133,19 +133,19 @@
                                 <div class="single-product">
                                     
                                     <div class="product-f-image">
-                                        <a href="{{ route('product.show', ['id' => $product->id]) }}">
+                                        <a href="{{ route('product.show', ['MaSanPham' => $product->MaSanPham]) }}">
                                             <img src="{{ asset('img/products/' . $product->HinhAnh) }}" 
                                                 alt="{{ $product->TenSanPham }}" 
                                                 class="fixed-product-image">
                                         </a>
                                         <div class="product-hover">
                                             <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="{{ route('product.show', ['id' => $product->id]) }}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                            <a href="{{ route('product.show', ['MaSanPham' => $product->MaSanPham]) }}" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                         </div>
                                     </div>
                                     
                                     <h2>
-                                        <a href="{{ route('product.show', ['id' => $product->id]) }}">
+                                        <a href="{{ route('product.show', ['MaSanPham' => $product->MaSanPham]) }}">
                                             {{ $product->TenSanPham }}
                                         </a>
                                     </h2>
@@ -200,7 +200,7 @@
                                     {{-- {{ dd($topseller) }} --}}
                                         @foreach($topseller as $product)
                                         <div class="single-wid-product">
-                                            <a href="{{ route('product.show', ['id' => $product->id]) }}">
+                                            <a href="{{ route('product.show', ['MaSanPham' => $product->MaSanPham]) }}">
                                                 <img src="{{ asset('img/products/' . $product->HinhAnh) }}" 
                                                     alt="{{ $product->TenSanPham }}" 
                                                     class="product-thumb">
@@ -265,7 +265,12 @@
                                     @php
                                         // Inline Top New widget: use SanPham to keep product queries centralized
                                         $sanPham = app(\App\Models\SanPham::class);
-                                        $items = $sanPham->getTop(3);
+                                        $items = \App\Models\SanPham::where('TrangThai', 1)
+                                                        ->orderByDesc('NgayCapNhat') // nếu có cột NgayCapNhat
+                                                        ->orWhereNull('NgayCapNhat')
+                                                        ->orderByDesc('MaSanPham')
+                                                        ->take(3)
+                                                        ->get();
                                     @endphp
 
                                 @if(isset($items) && count($items))
