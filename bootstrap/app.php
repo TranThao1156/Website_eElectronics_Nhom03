@@ -20,7 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => \App\Http\Middleware\AuthMiddleware::class,
         ]);
     })
-
     ->withExceptions(function ($exceptions) {
         //
     })

@@ -1,6 +1,6 @@
 <?php
-
 use App\Http\Controllers\NguoiDungController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice_SpController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;

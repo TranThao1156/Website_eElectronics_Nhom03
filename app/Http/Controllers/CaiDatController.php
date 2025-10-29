@@ -17,3 +17,4 @@ class CaiDatController extends Controller
         View::share('socialLinks', $socialLinks);
     }
 }
+
