@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Http\Middleware\AuthMiddleware;
 use App\Models\BackOffice_Sp;
+use App\Models\SanPham;
 
 Route::middleware('web')->group(function () {
 
@@ -20,7 +21,7 @@ Route::middleware('web')->group(function () {
 
     // Truy cập vào http://localhost:8000/check-slug để được check slug
     Route::get('/check-slug', function () {
-        $products = (new BackOffice_Sp())->getAllProducts();
+        $products = (new SanPham())->getAllProducts();
 
         foreach ($products as $product) {
             $slug = Str::slug($product->Ten) . '-' . $product->MaSanPham;
