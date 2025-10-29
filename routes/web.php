@@ -1,11 +1,11 @@
 <?php
-
+use App\Http\Controllers\BackOffice_SpController;
 use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\CaiDatController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BackOffice_SpController;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\NguoiDungController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Models\CaiDat;
@@ -50,14 +50,14 @@ Route::get('/footer', function (CaiDat $caiDatService) {
 // -------------------------
 // (ĐĂNG NHẬP / ĐĂNG KÝ)
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::get('/login', [NguoiDungController::class, 'showLogin'])->name('login');
+Route::post('/login', [NguoiDungController::class, 'login'])->name('login.post');
+Route::get('/register', [NguoiDungController::class, 'showRegister'])->name('register');
+Route::post('/register', [NguoiDungController::class, 'register'])->name('register.post');
 
 // Reset mật khẩu
-Route::get('/resetpassword', [AuthController::class, 'showResetPassword'])->name('resetpassword');
-Route::post('/resetpassword', [AuthController::class, 'resetPassword'])->name('resetpassword.post');
+Route::get('/resetpassword', [NguoiDungController::class, 'showResetPassword'])->name('resetpassword');
+Route::post('/resetpassword', [NguoiDungController::class, 'resetPassword'])->name('resetpassword.post');
 
 // -------------------------
 //  ROUTE YÊU CẦU ĐĂNG NHẬP
