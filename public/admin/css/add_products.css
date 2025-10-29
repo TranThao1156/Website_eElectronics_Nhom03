@@ -1,0 +1,218 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    /* padding: 40px; */
+}
+
+.container {
+    background: #fff;
+    max-width: 700px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+/* Các ô nhập liệu cùng kích thước */
+input, select, textarea, .datalist-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+/* Giới hạn chiều cao textarea cho đồng đều */
+textarea {
+    resize: vertical;
+    min-height: 44px;
+    height: 100px;
+}
+
+/* Nút bấm */
+button {
+    display: block;
+    width: 100%;
+    background: #1abc9c;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #16a085;
+}
+
+/* Datalist container */
+.custom-datalist {
+    position: relative;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+/* Input có datalist */
+.datalist-input:focus {
+    border-color: #1abc9c;
+    box-shadow: 0 0 8px rgba(26, 188, 156, 0.5);
+}
+
+.datalist-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Một số trình duyệt hỗ trợ style cho option */
+datalist option {
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
+/* Container chính chứa tất cả thumbnail */
+.image-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 20px; */
+}
+
+/* Container các thumbnail */
+.image-preview-container {
+    display: flex;          /* thumbnail nằm ngang */
+    flex-wrap: wrap;        /* xuống dòng nếu hết chỗ */
+    gap: 10px;              /* khoảng cách giữa các thumbnail */
+    align-items: flex-start;
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+}
+
+
+/* Mỗi thumbnail */
+.image-preview {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;         /* không co nhỏ */
+    background-color: #f9f9f9;
+}
+
+/* Ảnh bên trong thumbnail */
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* giữ tỷ lệ, cắt vừa thumbnail */
+    display: block;
+}
+
+/* Nút xóa ảnh */
+.remove-image {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(255,0,0,0.8);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Input file */
+#images {
+    /* padding: 6px; */
+    border: 1px solid #ccc;
+border-radius: 5px;
+    width: 250px;
+}
+
+/* Responsive nhỏ màn hình */
+@media (max-width: 500px) {
+    .image-preview {
+        width: 70px;
+        height: 70px;
+    }
+
+    .remove-image {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+.custom-datalist {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.custom-datalist .datalist-input {
+    flex: 1;
+    height: 38px; /* cùng chiều cao với nút */
+    padding: 6px 10px;
+}
+/* Nút thêm danh mục (dấu +) */
+.custom-datalist .btn-add {
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 5px rgba(26, 188, 156, 0.3);
+}
+
+/* Hiệu ứng hover */
+.custom-datalist .btn-add:hover {
+    background-color: #16a085;
+    transform: scale(1.08);
+    box-shadow: 0 3px 8px rgba(26, 188, 156, 0.4);
+}
+
+/* Hiệu ứng khi nhấn */
+.custom-datalist .btn-add:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(26, 188, 156, 0.3);
+}
+
+
+
