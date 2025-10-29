@@ -45,7 +45,7 @@
                 class="datalist-input">
             <datalist id="nhacungcap_list">
                 @foreach($dsNhaCungCap as $ncc)
-                <option value="{{ $ncc->Ten }}"></option>
+                <option data-id="{{ $ncc->MaNhaCungCap }}" value="{{ $ncc->Ten }}" ></option>
                 @endforeach
             </datalist>
         </div>
@@ -71,7 +71,7 @@
                 class="datalist-input">
             <datalist id="danhmuc_list">
                 @foreach($dsDanhMuc as $dm)
-                <option value="{{ $dm->Ten }}"></option>
+                <option data-id="{{ $dm->MaDanhMuc }}" value="{{ $dm->Ten }}"></option>
                 @endforeach
             </datalist>
             <button type="button" id="btnThemDanhMuc" class="btn-add">+</button>
@@ -95,7 +95,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    // Ajax
+    // Ajax cho phần thêm danh mục
     $('#btnThemDanhMuc').on('click', function() {
         const tenDanhMuc = $('#danh_muc').val().trim();
 

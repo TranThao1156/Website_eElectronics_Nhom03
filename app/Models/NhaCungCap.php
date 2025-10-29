@@ -4,21 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NguoiDung extends Model
+class NhaCungCap extends Model
 {
-    protected $table = 'nguoidung';
-    protected $primaryKey = 'IDUser';
+     protected $table = 'nhacungcap';
+    protected $primaryKey = 'MaNhaCungCap';
     public $timestamps = false;
-
     protected $fillable = [
-        'TenDangNhap',
-        'MatKhau',
+        'Ten',
         'Email',
         'SoDienThoai',
-        'NgaySinh',
-        'GioiTinh',
         'DiaChi',
         'TrangThai',
-        'Role',
+
     ];
 }

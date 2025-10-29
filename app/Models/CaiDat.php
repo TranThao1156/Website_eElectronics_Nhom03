@@ -22,5 +22,6 @@ class CaiDat extends Model
     public static function getSocialLinks()
     {
         return self::select('Facebook', 'Twitter', 'Youtube', 'Linkedin', 'Pinterest')->first();
+
     }
 }

@@ -18,14 +18,14 @@
                                 <a href="#" class="add-to-cart-link">
                                     <i class="fa fa-shopping-cart"></i> Add to cart
                                 </a>
-                                <a href="{{ route('product.show', ['id' => $product->id]) }}" class="view-details-link">
+                                <a href="{{ route('product.show', ['MaSanPham' => $product->MaSanPham]) }}" class="view-details-link">
                                     <i class="fa fa-link"></i> See details
                                 </a>
                             </div>
                         </div>
 
                         <h2>
-                            <a href="{{ route('product.show', ['id' => $product->id]) }}">
+                            <a href="{{ route('product.show', ['MaSanPham' => $product->MaSanPham]) }}">
                                 {{ $product->TenSanPham }}
                             </a>
                         </h2>

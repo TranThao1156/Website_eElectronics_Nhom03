@@ -28,5 +28,6 @@ class LienHe extends Model
 
     public function user() {
         return $this->belongsTo(NguoiDung::class, 'IDUser', 'IDUser');
+
     }
 }

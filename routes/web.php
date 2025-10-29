@@ -4,7 +4,6 @@
 use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\CaiDatController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice_SpController;
 use App\Http\Controllers\DanhMucController;
 use App\Http\Controllers\NguoiDungController;
@@ -35,13 +34,10 @@ Route::get('/products', [SanPhamController::class, 'index'])->name('products.ind
 Route::get('/recently-viewed', [SanPhamController::class, 'recentlyViewed'])->name('recently.viewed');
 
 // Chi tiết sản phẩm
-Route::get('/product/{id}', [SanPhamController::class, 'show'])->name('product.show');
+Route::get('/product/{MaSanPham}', [SanPhamController::class, 'show'])->name('product.show');
 
 // Top Seller
 Route::get('/TopSeller', [SanPhamController::class, 'allTopSeller'])->name('TopSeller');
-
-// Sản phẩm tiếng Việt
-Route::get('/san-pham/{id}', [SanPhamController::class, 'show'])->name('product.vietnamese');
 
 // Footer động
 Route::get('/footer', function (CaiDat $caiDatService) {
@@ -84,7 +80,5 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         require __DIR__ . '/backoffice.php';
     }
 });
-
-
 
 Route::post('/api/category/add', [DanhMucController::class, 'ajaxAdd'])->name('category.ajaxAdd');

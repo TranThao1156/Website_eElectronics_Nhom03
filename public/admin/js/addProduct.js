@@ -73,3 +73,42 @@ document.querySelector("form").addEventListener("submit", function (e) {
         e.preventDefault();
     }
 });
+
+// Khi người dùng chọn danh mục trong datalist
+$('#danh_muc').on('input', function() {
+    const value = $(this).val();
+    const option = $(`#danhmuc_list option[value="${value}"]`);
+    if (option.length) {
+        $(this).data('id', option.data('id'));
+    } else {
+        $(this).data('id', '');
+    }
+});
+
+// Khi người dùng chọn nhà cung cấp
+$('#nha_cung_cap').on('input', function() {
+    const value = $(this).val();
+    const option = $(`#nhacungcap_list option[value="${value}"]`);
+    if (option.length) {
+        $(this).data('id', option.data('id'));
+    } else {
+        $(this).data('id', '');
+    }
+});
+
+// Trước khi gửi form, thay giá trị input = id thật
+$('form').on('submit', function(e) {
+    const maDM = $('#danh_muc').data('id');
+    const maNCC = $('#nha_cung_cap').data('id');
+
+    if (!maDM || !maNCC) {
+        e.preventDefault();
+        alert('Vui lòng chọn danh mục và nhà cung cấp hợp lệ!');
+        return;
+    }
+
+    $('#danh_muc').val(maDM);
+    $('#nha_cung_cap').val(maNCC);
+});
+
+

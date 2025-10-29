@@ -34,3 +34,4 @@ class LienHeController extends Controller
             ->with('success', 'Gửi liên hệ thành công!');
     }
 }
+

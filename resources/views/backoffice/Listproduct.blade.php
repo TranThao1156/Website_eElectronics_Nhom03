@@ -7,14 +7,11 @@
 <div class="row">
     <div class="col-lg-12">
         <h2 class="page-header">Danh sách sản phẩm</h2>
-
         <p>
             <a href="{{ route('add_product.index') }}" class="btn btn-primary">
                 + Thêm sản phẩm
             </a>
         </p>
-
-
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead class="table-light">

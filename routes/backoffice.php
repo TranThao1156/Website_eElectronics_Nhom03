@@ -1,11 +1,9 @@
 <?php
 use App\Http\Controllers\NguoiDungController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BackOffice_SpController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Http\Middleware\AuthMiddleware;
-use App\Models\BackOffice_Sp;
 use App\Models\SanPham;
 
 Route::middleware('web')->group(function () {
